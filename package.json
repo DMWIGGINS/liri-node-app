@@ -1,0 +1,32 @@
+{
+  "name": "liri-node-app",
+  "version": "1.0.0",
+  "description": "class project where user input will result in responses from Twitter, Spotify and OMDB",
+  "main": "gen.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DMWIGGINS/liri-node-app.git"
+  },
+  "keywords": [
+    "movies",
+    "tweets",
+    "music",
+    "Twitter",
+    "Spotify",
+    "OMDB"
+  ],
+  "author": "Doreen Wiggins",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DMWIGGINS/liri-node-app/issues"
+  },
+  "homepage": "https://github.com/DMWIGGINS/liri-node-app#readme",
+  "dependencies": {
+    "twitter": "^1.7.1",
+    "spotify": "^0.3.0",
+    "request": "^2.0.0"
+  }
+}
