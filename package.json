@@ -25,8 +25,8 @@
   },
   "homepage": "https://github.com/DMWIGGINS/liri-node-app#readme",
   "dependencies": {
-    "twitter": "^1.7.1",
-    "spotify": "^0.3.0",
-    "request": "^2.0.0"
+    "node-spotify-api": "^1.0.7",
+    "request": "^2.0.0",
+    "twitter": "^1.7.1"
   }
 }
