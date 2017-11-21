@@ -5,7 +5,7 @@ var twitterKeys = {
   consumer_secret: 'nSSMVnhI8msf5ThcggYSf3vTvw1d3QkpQl6QgjnJF9FJ15daIa',
   access_token_key: '930899174660460544-EnFtdwfZRqDBO1XjppOnhDKKO2bRFHM',
   access_token_secret: 'WafA4HYsuLBCAbet5A1svpbi8LDGOtHwaGtlsfqWXDXSU',
-}
+};
 
 module.exports = twitterKeys;
 
