@@ -10,15 +10,10 @@ var twitterKeys = {
 module.exports = twitterKeys;
 
 
-// Access Token	930899174660460544-EnFtdwfZRqDBO1XjppOnhDKKO2bRFHM
-// Access Token Secret	WafA4HYsuLBCAbet5A1svpbi8LDGOtHwaGtlsfqWXDXSU
-// Access Level	Read and write
-// Owner	classaccount3
-// Owner ID	930899174660460544
 
-// Consumer Key (API Key)	fhgskkjQcicDGctJPHq5ySjMC
-// Consumer Secret (API Secret)	nSSMVnhI8msf5ThcggYSf3vTvw1d3QkpQl6QgjnJF9FJ15daIa
-// Access Level	Read and write (modify app permissions)
-// Owner	classaccount3
-// Owner ID	930899174660460544
+var spotify = {
+  id: "c464dc23157e43708187577a737547f3",
+  secret: "e956a1b12da84cb4b4e6beabc4c09c47"
+};
 
+module.exports = spotify;
