@@ -1,0 +1,3 @@
+client.get('search/tweets', {q: 'node.js'}, function(error, tweets, response) {
+   console.log(tweets);
+});

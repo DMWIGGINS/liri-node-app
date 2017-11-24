@@ -38,12 +38,15 @@ if (process.argv[2] === "my-tweets") {
             return console.log('Error occurred: ' + err);
         }
 
-        console.log(data);
-        console.log(JSON.stringify(data));
-        // console.log(data.tracks.artist);
-        // console.log(data.album.name);
-        // console.log(data.track.name);
-        // console.log(data.href);
+        // console.log(data);
+        // console.log(JSON.stringify(data));
+    
+        console.log(data.tracks.items[0].artists[0].name);
+        console.log(data.tracks.items[0].album.name);
+        console.log(data.tracks.items[0].name);
+        console.log(data.tracks.items[0].external_urls.spotify);
+        
+        
     });
 }
 
