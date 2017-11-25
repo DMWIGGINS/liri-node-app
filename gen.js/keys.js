@@ -11,17 +11,5 @@ module.exports = twitterKeys;
 
  
 
-var spotify = {
-  id: "c464dc23157e43708187577a737547f3",
-  secret: "e956a1b12da84cb4b4e6beabc4c09c47",
-};
 
-module.exports = spotify;
 
-var movieKey = {
-  movie_key: "40e9cece"
-};
-
-module.exports = movieKey;
-
-// "Mr. Nobody," then you should: http://www.imdb.com/title/tt0485947/

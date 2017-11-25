@@ -26,7 +26,7 @@ if (process.argv[2] === "my-tweets") {
 
 
     var Spotify = require('node-spotify-api');
-    var secret = require('./keys.js');
+    var secret = require('./keys_spotify.js');
     var song = new Spotify(secret);
 
     // If no song is provided then default to "The Sign" by Ace of Base.
@@ -59,7 +59,7 @@ if (process.argv[2] === "my-tweets") {
     }
 } else if (process.argv[2] === "movie-this") {
     var request = require("request");
-    movieKey = require('./keys.js');
+    movieKey = require('./keys_omdb.js');
     
 
     if (process.argv.length < 4) {
