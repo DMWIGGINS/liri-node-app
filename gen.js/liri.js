@@ -1,8 +1,8 @@
-var Twitter = require('twitter');
-var client = require("./keys.js");
-var T = new Twitter(client);
-
 if (process.argv[2] === "my-tweets") {
+
+    var Twitter = require('twitter');
+    var client = require("./keys.js");
+    var T = new Twitter(client);
 
     var params = {
         screen_name: 'classaccount3',
@@ -60,7 +60,7 @@ if (process.argv[2] === "my-tweets") {
 } else if (process.argv[2] === "movie-this") {
     var request = require("request");
     movieKey = require('./keys_omdb.js');
-    
+
 
     if (process.argv.length < 4) {
         var movieName = "Mr. Nobody";
@@ -85,16 +85,49 @@ if (process.argv[2] === "my-tweets") {
             console.log(JSON.parse(body).Ratings[1].Value);
             console.log(JSON.parse(body).Country);
             console.log(JSON.parse(body).Language);
-            console.log(JSON.parse(body).Plot);            
+            console.log(JSON.parse(body).Plot);
             console.log(JSON.parse(body).Actors);
         };
-        // * Title of the movie.response.title
-        // * Year the movie came out. response.year
-        // * IMDB Rating of the movie. response.ratings[0].source and response.ratings[0].value
-        // * Rotten Tomatoes Rating of the movie. response.ratings[1].source and response.ratings[1].value
-        // * Country where the movie was produced. response.country
-        // * Language of the movie. response.language
-        // * Plot of the movie. response.plot
-        // * Actors in the movie. response.actors
+
+    });
+} else if (process.argv[2] === "do-what-it-says") {
+    
+    var fs = require("fs");
+    fs.readFile("random.txt", "utf8", function (error, data) {
+        if (error) {
+            return console.log(error);
+        } else {
+            var random = data.split(",");
+            console.log(random);
+            if (random[0] === "spotify-this-song") {
+                var Spotify = require('node-spotify-api');
+                var secret = require('./keys_spotify.js');
+                var song = new Spotify(secret);
+
+                query = random[1];
+
+                song.search({
+                    type: 'track',
+                    query: random[1],
+                    limit: 1
+
+                }, function (err, data) {
+                    if (err) {
+                        return console.log('Error occurred: ' + err);
+
+                    } else {
+
+                        console.log(data.tracks.items[0].artists[0].name);
+                        console.log(data.tracks.items[0].name);
+                        console.log(data.tracks.items[0].external_urls.spotify);
+                        console.log(data.tracks.items[0].album.name);
+
+                    }
+                });
+
+
+            }
+
+        }
     });
 }
