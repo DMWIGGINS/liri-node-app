@@ -1,5 +1,6 @@
-if (process.argv[2] === "my-tweets") {
+var fs = require("fs");
 
+function myTweets() {
     var Twitter = require('twitter');
     var client = require("./keys.js");
     var T = new Twitter(client);
@@ -15,16 +16,21 @@ if (process.argv[2] === "my-tweets") {
             for (var i = 0; i < tweets.length; i++) {
                 console.log(tweets[i].created_at);
                 console.log(tweets[i].text);
+                fs.appendFile("log.txt", "," + tweets[i].created_at + ", " + tweets[i].text, function (error) {
+                    if (error) {
+                        return console.log(error);
+                    }
+                });
             }
+
         } else {
             return console.log(JSON.stringify(error));
 
         }
     });
+};
 
-} else if (process.argv[2] === "spotify-this-song") {
-
-
+function spotifyThis() {
     var Spotify = require('node-spotify-api');
     var secret = require('./keys_spotify.js');
     var song = new Spotify(secret);
@@ -35,6 +41,15 @@ if (process.argv[2] === "my-tweets") {
         console.log("The Sign");
         console.log("https://open.spotify.com/track/0hrBpAOgrt8RXigk83LLNE");
         console.log("The Sign (US Album) [Remastered]");
+
+
+        fs.appendFile("log.txt", "Ace of Base, The Sign, https://open.spotify.com/track/0hrBpAOgrt8RXigk83LLNE, The Sign (US Album) [Remastered]", function (error) {
+            if (error) {
+                return console.log(error);
+            }
+        });
+
+
     } else {
 
         song.search({
@@ -53,11 +68,19 @@ if (process.argv[2] === "my-tweets") {
                 console.log(data.tracks.items[0].external_urls.spotify);
                 console.log(data.tracks.items[0].album.name);
 
+                fs.appendFile("log.txt", "," + data.tracks.items[0].artists[0].name + ", " + data.tracks.items[0].name + ", " + data.tracks.items[0].external_urls.spotify + ", " + data.tracks.items[0].album.name,
+                    function (error) {
+                        if (error) {
+                            return console.log(error);
+                        }
+                    });
             }
         });
 
     }
-} else if (process.argv[2] === "movie-this") {
+};
+
+function movieThis() {
     var request = require("request");
     movieKey = require('./keys_omdb.js');
 
@@ -87,47 +110,47 @@ if (process.argv[2] === "my-tweets") {
             console.log(JSON.parse(body).Language);
             console.log(JSON.parse(body).Plot);
             console.log(JSON.parse(body).Actors);
-        };
+
+            fs.appendFile("log.txt", +JSON.parse(body).Title + ", " + JSON.parse(body).Year + ", " + JSON.parse(body).Ratings[0].Source + ", " + JSON.parse(body).Ratings[0].Value + ", " + JSON.parse(body).Ratings[1].Source + ", " + JSON.parse(body).Ratings[1].Value + ", " + JSON.parse(body).Country + ", " + JSON.parse(body).Language + ", " + JSON.parse(body).Plot + ", " + JSON.parse(body).Actors, function (error) {
+                if (error) {
+                    return console.log(error);
+                }
+            });
+
+        }
 
     });
+
+
+
+};
+
+if (process.argv[2] === "my-tweets") {
+    myTweets();
+
+
+} else if (process.argv[2] === "spotify-this-song") {
+    spotifyThis();
+
+} else if (process.argv[2] === "movie-this") {
+    movieThis();
+
 } else if (process.argv[2] === "do-what-it-says") {
-    
-    var fs = require("fs");
+
     fs.readFile("random.txt", "utf8", function (error, data) {
         if (error) {
             return console.log(error);
         } else {
             var random = data.split(",");
-            console.log(random);
             if (random[0] === "spotify-this-song") {
-                var Spotify = require('node-spotify-api');
-                var secret = require('./keys_spotify.js');
-                var song = new Spotify(secret);
-
-                query = random[1];
-
-                song.search({
-                    type: 'track',
-                    query: random[1],
-                    limit: 1
-
-                }, function (err, data) {
-                    if (err) {
-                        return console.log('Error occurred: ' + err);
-
-                    } else {
-
-                        console.log(data.tracks.items[0].artists[0].name);
-                        console.log(data.tracks.items[0].name);
-                        console.log(data.tracks.items[0].external_urls.spotify);
-                        console.log(data.tracks.items[0].album.name);
-
-                    }
-                });
-
-
+                process.argv[3] = random[1];
+                spotifyThis();
+            } else if (random[0] === "my-tweets") {
+                myTweets();
+            } else if (random[0] === "movie-this") {
+                process.argv[3] = random[1];
+                movieThis();
             }
-
         }
     });
 }
