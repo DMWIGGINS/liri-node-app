@@ -16,7 +16,7 @@ function myTweets() {
             for (var i = 0; i < tweets.length; i++) {
                 console.log(tweets[i].created_at);
                 console.log(tweets[i].text);
-                fs.appendFile("log.txt", "," + tweets[i].created_at + ", " + tweets[i].text, function (error) {
+                fs.appendFile("log.txt", tweets[i].created_at + ", " + tweets[i].text + ", ", function (error) {
                     if (error) {
                         return console.log(error);
                     }
@@ -43,7 +43,7 @@ function spotifyThis() {
         console.log("The Sign (US Album) [Remastered]");
 
 
-        fs.appendFile("log.txt", "Ace of Base, The Sign, https://open.spotify.com/track/0hrBpAOgrt8RXigk83LLNE, The Sign (US Album) [Remastered]", function (error) {
+        fs.appendFile("log.txt", "Ace of Base, The Sign, https://open.spotify.com/track/0hrBpAOgrt8RXigk83LLNE, The Sign (US Album) [Remastered], ", function (error) {
             if (error) {
                 return console.log(error);
             }
@@ -68,7 +68,7 @@ function spotifyThis() {
                 console.log(data.tracks.items[0].external_urls.spotify);
                 console.log(data.tracks.items[0].album.name);
 
-                fs.appendFile("log.txt", "," + data.tracks.items[0].artists[0].name + ", " + data.tracks.items[0].name + ", " + data.tracks.items[0].external_urls.spotify + ", " + data.tracks.items[0].album.name,
+                fs.appendFile("log.txt", data.tracks.items[0].artists[0].name + ", " + data.tracks.items[0].name + ", " + data.tracks.items[0].external_urls.spotify + ", " + data.tracks.items[0].album.name + ", ",
                     function (error) {
                         if (error) {
                             return console.log(error);
@@ -111,7 +111,7 @@ function movieThis() {
             console.log(JSON.parse(body).Plot);
             console.log(JSON.parse(body).Actors);
 
-            fs.appendFile("log.txt", +JSON.parse(body).Title + ", " + JSON.parse(body).Year + ", " + JSON.parse(body).Ratings[0].Source + ", " + JSON.parse(body).Ratings[0].Value + ", " + JSON.parse(body).Ratings[1].Source + ", " + JSON.parse(body).Ratings[1].Value + ", " + JSON.parse(body).Country + ", " + JSON.parse(body).Language + ", " + JSON.parse(body).Plot + ", " + JSON.parse(body).Actors, function (error) {
+            fs.appendFile("log.txt", JSON.parse(body).Title + ", " + JSON.parse(body).Year + ", " + JSON.parse(body).Ratings[0].Source + ", " + JSON.parse(body).Ratings[0].Value + ", " + JSON.parse(body).Ratings[1].Source + ", " + JSON.parse(body).Ratings[1].Value + ", " + JSON.parse(body).Country + ", " + JSON.parse(body).Language + ", " + JSON.parse(body).Plot + ", " + JSON.parse(body).Actors + ", ", function (error) {
                 if (error) {
                     return console.log(error);
                 }
