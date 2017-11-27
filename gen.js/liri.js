@@ -25,7 +25,7 @@ function myTweets() {
             for (var i = 0; i < tweets.length; i++) {
                 console.log(tweets[i].created_at);
                 console.log(tweets[i].text);
-
+            
                 // append each date/time and tweet to the log.tx file each loop iteration
                 fs.appendFile("log.txt", tweets[i].created_at + ", " + tweets[i].text + ", ", function (error) {
                     if (error) {
@@ -141,7 +141,7 @@ function movieThis() {
                 }
             });
         } else {
-                // if error than show in console            
+            // if error than show in console            
             return console.log(error);
         }
     });
