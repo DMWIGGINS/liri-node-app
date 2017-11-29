@@ -25,8 +25,10 @@ function myTweets() {
             for (var i = 0; i < tweets.length; i++) {
                 console.log(tweets[i].created_at);
                 console.log(tweets[i].text);
-            
-                // append each date/time and tweet to the log.tx file each loop iteration
+                console.log("---------------");
+
+
+                // append each date/time and tweet to the log.txt file each loop iteration
                 fs.appendFile("log.txt", tweets[i].created_at + ", " + tweets[i].text + ", ", function (error) {
                     if (error) {
                         return console.log(error);
@@ -48,20 +50,30 @@ function spotifyThis() {
     var secret = require('./keys_spotify.js');
     var song = new Spotify(secret);
 
-    // If no song is provided then return the song The Sign by Ace of Base
+    // If no song is provided then return the song The Sign by Ace of Base. We must request specifically because a general search does not returns a different song.
     if (process.argv.length < 4) {
-        console.log("Ace of Base");
-        console.log("The Sign");
-        console.log("https://open.spotify.com/track/0hrBpAOgrt8RXigk83LLNE");
-        console.log("The Sign (US Album) [Remastered]");
-
-        // append result to log.txt file
-        fs.appendFile("log.txt", "Ace of Base, The Sign, https://open.spotify.com/track/0hrBpAOgrt8RXigk83LLNE, The Sign (US Album) [Remastered], ", function (error) {
+        song.request('https://api.spotify.com/v1/tracks/0hrBpAOgrt8RXigk83LLNE', function (error, data) {
             if (error) {
-                // if error than show in console
-                return console.log(error);
+                return console.log('Error occurred: ' + error);
+            } else {
+
+                // return the artist name, song name, link to the song in spotify and the name of the album the song is from
+                console.log("Artist: " + data.artists[0].name);
+                console.log("Song: " + data.name);
+                console.log("Preview: " + data.preview_url);
+                console.log("Album: " + data.album.name);
+
+                // append the data returned about the song to the log.txt file
+                fs.appendFile("log.txt", data.artists[0].name + ", " + data.name + ", " + data.album.preview_url + ", " + data.album.name + ", ",
+                    function (error) {
+                        if (error) {
+                            return console.log(error);
+                        }
+
+                    });
             }
         });
+
     } else {
 
         // if song is provided then search for 1 song with the title
@@ -76,13 +88,14 @@ function spotifyThis() {
                 return console.log('Error occurred: ' + error);
             } else {
                 // return the artist name, song name, link to the song in spotify and the name of the album the song is from
-                console.log(data.tracks.items[0].artists[0].name);
-                console.log(data.tracks.items[0].name);
-                console.log(data.tracks.items[0].external_urls.spotify);
-                console.log(data.tracks.items[0].album.name);
+                console.log(data.tracks);
+                console.log("Artist: " + data.tracks.items[0].artists[0].name);
+                console.log("Song: " + data.tracks.items[0].name);
+                console.log("Preview: " + data.tracks.items[0].preview_url);
+                console.log("Album: " + data.tracks.items[0].album.name);
 
                 // append the data returned about the song to the log.txt file
-                fs.appendFile("log.txt", data.tracks.items[0].artists[0].name + ", " + data.tracks.items[0].name + ", " + data.tracks.items[0].external_urls.spotify + ", " + data.tracks.items[0].album.name + ", ",
+                fs.appendFile("log.txt", "Artist: " + data.tracks.items[0].artists[0].name + ", Song: " + data.tracks.items[0].name + ", Preview: " + data.tracks.items[0].preview_ur + ", Album: " + data.tracks.items[0].album.name + ", ",
                     function (error) {
                         if (error) {
                             return console.log(error);
@@ -90,9 +103,9 @@ function spotifyThis() {
                     });
             }
         });
+
     }
 };
-
 // create function movieThis for when the user types movie-this
 function movieThis() {
 
@@ -117,24 +130,24 @@ function movieThis() {
         if (!error && response.statusCode === 200) {
 
             // log movie title
-            console.log(JSON.parse(body).Title);
+            console.log("Movie Title: " + JSON.parse(body).Title);
             // log release year
-            console.log(JSON.parse(body).Year);
+            console.log("Year Released: " + JSON.parse(body).Year);
             // log rating from OMDB
-            console.log(JSON.parse(body).Ratings[0].Source + " Rating:  " + JSON.parse(body).Ratings[0].Value)
+            console.log(JSON.parse(body).Ratings[0].Source + " Rating: " + JSON.parse(body).Ratings[0].Value)
             // log rating from Rotten Tomatoes
-            console.log(JSON.parse(body).Ratings[1].Source + " Rating:  " + JSON.parse(body).Ratings[1].Value);
+            console.log(JSON.parse(body).Ratings[1].Source + " Rating: " + JSON.parse(body).Ratings[1].Value);
             // log country where movie was produced
-            console.log(JSON.parse(body).Country);
+            console.log("Country(ies) Where Produced: " + JSON.parse(body).Country);
             // log language of movie
-            console.log(JSON.parse(body).Language);
+            console.log("Language(s): " + JSON.parse(body).Language);
             // log plot summary
-            console.log(JSON.parse(body).Plot);
+            console.log("Plot: " + JSON.parse(body).Plot);
             // log actors in movie
-            console.log(JSON.parse(body).Actors);
+            console.log("Actors: " + JSON.parse(body).Actors);
 
             // append all returned movie info to log.txt file
-            fs.appendFile("log.txt", JSON.parse(body).Title + ", " + JSON.parse(body).Year + ", " + JSON.parse(body).Ratings[0].Source + ", " + JSON.parse(body).Ratings[0].Value + ", " + JSON.parse(body).Ratings[1].Source + ", " + JSON.parse(body).Ratings[1].Value + ", " + JSON.parse(body).Country + ", " + JSON.parse(body).Language + ", " + JSON.parse(body).Plot + ", " + JSON.parse(body).Actors + ", ", function (error) {
+            fs.appendFile("log.txt", "Movie Title: " + JSON.parse(body).Title + ", Year Released: " + JSON.parse(body).Year + ", " + JSON.parse(body).Ratings[0].Source + " Rating: " + JSON.parse(body).Ratings[0].Value + ", " + JSON.parse(body).Ratings[1].Source + " Rating: " + JSON.parse(body).Ratings[1].Value + ", Country(ies) Where Produced: " + JSON.parse(body).Country + ", Language(s): " + JSON.parse(body).Language + ", Plot: " + JSON.parse(body).Plot + ", Actors: " + JSON.parse(body).Actors + ", ", function (error) {
                 // if error than show in console
                 if (error) {
                     return console.log(error);
