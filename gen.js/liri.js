@@ -29,7 +29,7 @@ function myTweets() {
 
 
                 // append each date/time and tweet to the log.txt file each loop iteration
-                fs.appendFile("log.txt", tweets[i].created_at + ", " + tweets[i].text + ", ", function (error) {
+                fs.appendFile("log.txt", tweets[i].created_at + ": " + tweets[i].text + ", ", function (error) {
                     if (error) {
                         return console.log(error);
                     }
@@ -64,7 +64,7 @@ function spotifyThis() {
                 console.log("Album: " + data.album.name);
 
                 // append the data returned about the song to the log.txt file
-                fs.appendFile("log.txt", data.artists[0].name + ", " + data.name + ", " + data.album.preview_url + ", " + data.album.name + ", ",
+                fs.appendFile("log.txt", "Artist: " + data.artists[0].name + ", Song: " + data.name + ", Preview " + data.preview_url + ", Album: " + data.album.name + ", ",
                     function (error) {
                         if (error) {
                             return console.log(error);
@@ -83,19 +83,20 @@ function spotifyThis() {
             limit: 1
 
         }, function (error, data) {
+
             // if error then console.log the error
             if (error) {
                 return console.log('Error occurred: ' + error);
             } else {
+
                 // return the artist name, song name, link to the song in spotify and the name of the album the song is from
-                console.log(data.tracks);
                 console.log("Artist: " + data.tracks.items[0].artists[0].name);
                 console.log("Song: " + data.tracks.items[0].name);
                 console.log("Preview: " + data.tracks.items[0].preview_url);
                 console.log("Album: " + data.tracks.items[0].album.name);
 
                 // append the data returned about the song to the log.txt file
-                fs.appendFile("log.txt", "Artist: " + data.tracks.items[0].artists[0].name + ", Song: " + data.tracks.items[0].name + ", Preview: " + data.tracks.items[0].preview_ur + ", Album: " + data.tracks.items[0].album.name + ", ",
+                fs.appendFile("log.txt", "Artist: " + data.tracks.items[0].artists[0].name + ", Song: " + data.tracks.items[0].name + ", Preview: " + data.tracks.items[0].preview_url + ", Album: " + data.tracks.items[0].album.name + ", ",
                     function (error) {
                         if (error) {
                             return console.log(error);
